@@ -1,0 +1,26 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+version = '1.0'
+mainClassName='OfflineSigner'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+  compile 'org.codehaus.groovy:groovy-all:2.0.0'
+    compile fileTree(dir: '/home/rb/.groovy/lib', include: '*.jar');
+    runtime fileTree(dir: '/home/rb/.groovy/lib', include: '*.jar');
+}
+
+task uberjar(type: Jar,dependsOn:[':compileJava',':compileGroovy']) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it).matching{exclude{it.path.contains('DSA') or it.path.contains('RSA') or it.path.contains('SF') }} }
+    from configurations.compile.collect {
+              it.isDirectory() ? it : zipTree(it).matching{exclude{it.path.contains('DSA') or it.path.contains('RSA') or it.path.contains('SF') }}
+    }    
+
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
