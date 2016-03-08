@@ -11,14 +11,20 @@ This is work in progress and needs some polishing and testing. Use at your own r
 
 ## Installation and Running it
 
+We suppose you will use this with  2 system: one offline where you sign the transactions, which we will call the signing system, and one online
+for announcing transactions, which we will call the announcing system.
+
 ### Manual installation
 
-This project was developed with Groovy. If the system is online while you configure it, you can install
-groovy with http://sdkman.io/. With sdkman installed, it is simply a matter of running
+If the signing system is online while you set it up, you can follow these instructions. If not, you need to bring all dependencies 
+to the system. That might be easier with the jar mentioned below, but at a bigger risk for you as you didn't build the jar yourself.
+
+This project was developed with Groovy. The easiest way to install it is with [sdkman](http://sdkman.io/). With sdkman installed, it is simply a matter of running
 `sdk install groovy`.
 
-You need `nem.core` and its dependencies. For security reasons, you might want to compile nem.core from source.
-For that, you can find instructions in the [NEM programming manual](https://github.com/rb2nem/nem_programming/blob/master/02-setting-up-environment.md#linux).
+You need `nem.core` and its dependencies on both systemss. For security reasons, you might want to compile nem.core from source.
+You can find compilation instructions in the [NEM programming manual](https://github.com/rb2nem/nem_programming/blob/master/02-setting-up-environment.md#linux),
+where it is also explained how to download all nem.core dependencies with `mvn dependency:copy-dependencies -DoutputDirectory=/root/.groovy/lib/`.
 
 Once everything is set up, you can clone this directory and run the offline signer:
 ```
